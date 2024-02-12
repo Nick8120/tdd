@@ -41,7 +41,7 @@ class CounterTest(TestCase):
          """It should update a counter"""
          # Try to update a counter that hasn't been created
          updated_result = self.client.put('/counters/up')
-         self.assertEqual(updated_result.status_code, status.HTTP_409_CONFLICT)
+         self.assertEqual(updated_result.status_code, status.HTTP_404_NOT_FOUND)
 
          # Create a counter
          result = self.client.post('/counters/up')
@@ -65,7 +65,7 @@ class CounterTest(TestCase):
         """It should read a counter"""
         # Try to read counter before its created
         read_result = self.client.get('/counters/read')
-        self.assertEqual(read_result.status_code, status.HTTP_409_CONFLICT)
+        self.assertEqual(read_result.status_code, status.HTTP_404_NOT_FOUND)
 
         # Create a counter
         result = self.client.post('/counters/read')
@@ -78,4 +78,35 @@ class CounterTest(TestCase):
         read_value = read_result.json.get('read', None)
         self.assertIsNotNone(read_value)
         self.assertEqual(read_value, 0)
+  
+
+    def test_delete_a_counter(self):
+        """It should delete a counter"""
+        # Try to delete counter that doesnt exist
+        result = self.client.delete('/counters/delete')
+        self.assertEqual(result.status_code, status.HTTP_404_NOT_FOUND)
+
+         # Create a counter
+        new_result = self.client.post('/counters/delete')
+        self.assertEqual(new_result.status_code, status.HTTP_201_CREATED)
+
+        # Delete counter
+        delete_result = self.client.delete('/counters/delete')
+        self.assertEqual(delete_result.status_code, status.HTTP_204_NO_CONTENT)
+
+        # Verify that counter was deleted
+        verify_result = self.client.get('/counters/delete')
+        self.assertEqual(verify_result.status_code, status.HTTP_404_NOT_FOUND)
+
+
+
+  
+
+
+
+
+
+
+
+
 
