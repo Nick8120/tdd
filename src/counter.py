@@ -42,3 +42,4 @@ def read_counter(name):
         return {"Message": f"Counter {name} does not exist"}, status.HTTP_409_CONFLICT
     return {name: COUNTERS[name]}, status.HTTP_200_OK
 
+
