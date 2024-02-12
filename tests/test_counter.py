@@ -16,7 +16,7 @@ from unittest import TestCase
 from src.counter import app
 
 # we need to import the file that contains the status codes
-from src.status import status
+from src import status
 
 class CounterTest(TestCase):
     """Counter tests"""
