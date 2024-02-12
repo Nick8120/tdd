@@ -44,6 +44,3 @@ def read_counter(name):
 
 
 '\n'
-
-
-
