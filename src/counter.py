@@ -43,4 +43,4 @@ def read_counter(name):
     return {name: COUNTERS[name]}, status.HTTP_200_OK
 
 
-'/n'
+'\n'
