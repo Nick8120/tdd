@@ -1,11 +1,22 @@
+name: CI workflow
+on:
+  push:
+    branches:
+      [main]
+  pull_request:
+    branches:
+      [main]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: python:3.9-slim
 
     strategy:
       fail-fast: false
       matrix:
-        max-cores: [1, 2, 4]
+        max-cores: [ 1, 2, 4 ]
 
     steps:
       - name: Checkout
@@ -24,9 +35,6 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-            
-      - name: Install dependencies
-        run: pip install -r requirements.txt
 
       - name: Install flake8
         run: pip install flake8
@@ -39,7 +47,7 @@ jobs:
       - name: Run unit tests with nose
         run: |
           pip install nose
-          nosetests -v --with-spec --spec-color --with-coverage --cover-package=app
+          nosetests -v --with-spec --spec-color --with-coverage --cover-package=app'
         env:
           CPU_COUNT: ${{ matrix.max-cores }}
 
@@ -52,3 +60,5 @@ jobs:
         run: |
           pip install mypy
           mypy src
+    
+      
