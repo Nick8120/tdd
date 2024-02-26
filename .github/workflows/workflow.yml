@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: 3.9
           virtualenv-type: venv
-      
+
       - name: Install dependencies
         run: |
           pip install --upgrade pip
@@ -63,7 +63,7 @@ jobs:
 
       - name: Type Check with mypy
         run: |
-          pip install mypy
+          pip install mypy --ignore-missing-imports
           mypy src
     
       
