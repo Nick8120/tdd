@@ -63,7 +63,8 @@ jobs:
 
       - name: Type Check with mypy
         run: |
-          pip install mypy --ignore-missing-imports
+          pip install mypy
+          mypy --ignore-missing-imports status.py test_counter.py 
           mypy src
     
       
