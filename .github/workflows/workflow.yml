@@ -47,7 +47,7 @@ jobs:
       - name: Run unit tests with nose
         run: |
           pip install nose
-          nosetests -v --with-spec --spec-color --with-coverage --cover-package=app'
+          nosetests -v --with-spec --spec-color --with-coverage --cover-package=app
         env:
           CPU_COUNT: ${{ matrix.max-cores }}
 
